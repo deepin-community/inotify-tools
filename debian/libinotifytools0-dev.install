@@ -1,0 +1,4 @@
+usr/include/inotifytools/*
+usr/lib/*/libinotifytools.a
+usr/lib/*/libinotifytools.la
+usr/share/doc/inotify-tools/* usr/share/doc/libinotifytools0-dev
