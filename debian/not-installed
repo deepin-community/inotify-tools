@@ -1,0 +1,3 @@
+# The upstream is pointing the no version link to real name, instead of to
+# soname. Using debian/libinotifytools0-dev.links to make the right.
+usr/lib/${DEB_HOST_MULTIARCH}/libinotifytools.so

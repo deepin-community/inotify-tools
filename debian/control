@@ -1,15 +1,86 @@
-Source: template-repository
-Section: unknown
+Source: inotify-tools
+Section: misc
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Joao Eriberto Mota Filho <eriberto@debian.org>
+Build-Depends: debhelper-compat (= 13), doxygen
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+Vcs-Git: https://salsa.debian.org/debian/inotify-tools.git
+Vcs-Browser: https://salsa.debian.org/debian/inotify-tools
+Homepage: https://github.com/rvoicilas/inotify-tools/wiki/
 
-Package: template-repository
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Package: libinotifytools0
+Architecture: linux-any
+Multi-Arch: same
+Section: libs
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: utility wrapper around inotify
+ inotify (inode notify) is a Linux kernel subsystem that monitors events in
+ filesystems and reports those events to applications in real time via API.
+ .
+ inotify can be used to monitor individual files or directories. When a
+ directory is monitored, inotify will return events for the directory itself
+ and for files inside the directory.
+ .
+ libinotifytools is a thin layer on top of the kernel interface which makes
+ it easy to set up watches on many files at once, read events without having
+ to deal with low-level I/O and several utility functions for inotify-related
+ string formatting.
+
+Package: libinotifytools0-dev
+Architecture: linux-any
+Multi-Arch: same
+Section: libdevel
+Provides: libinotifytools-dev
+Conflicts: libinotifytools-dev
+Depends: libinotifytools0 (= ${binary:Version}),
+         ${misc:Depends}
+Description: Development library and header files for libinotifytools0
+ inotify (inode notify) is a Linux kernel subsystem that monitors events in
+ filesystems and reports those events to applications in real time via API.
+ .
+ inotify can be used to monitor individual files or directories. When a
+ directory is monitored, inotify will return events for the directory itself
+ and for files inside the directory.
+ .
+ libinotifytools is a thin layer on top of the kernel interface which makes
+ it easy to set up watches on many files at once, read events without having
+ to deal with low-level I/O and several utility functions for inotify-related
+ string formatting.
+ .
+ This package is for development only, providing headers, static libraries and
+ documentation for the libinotifytools library.
+
+Package: inotify-tools
+Architecture: linux-any
+Multi-Arch: foreign
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: command-line programs providing a simple interface to inotify
+ inotify (inode notify) is a Linux kernel subsystem that monitors events in
+ filesystems and reports those events to applications in real time via API.
+ .
+ inotify can be used to monitor individual files or directories. When a
+ directory is monitored, inotify will return events for the directory itself
+ and for files inside the directory.
+ .
+ inotify-tools is a set of command-line programs for Linux providing a simple
+ interface to inotify. These programs can be used to monitor and act upon
+ filesystem events. inotify-tools consists of four utilities: inotifywait,
+ inotifywatch, fsnotifywait and fsnotifywatch.
+ .
+ inotifywait efficiently waits for changes to files, making it appropriate
+ for use in shell scripts.
+ .
+ inotifywatch collects filesystem usage statistics and outputs counts of each
+ inotify event.
+ .
+ fsnotifywait and fsnotifywatch are similar to inotifywait and inotifywatch,
+ but they are using Linux's fanotify(7) interface by default. The fanotify API
+ also provides notification and interception of filesystem events. Additional
+ capabilities compared to the inotify(7) API include the ability to monitor
+ all of the objects in a mounted filesystem, the ability to make access
+ permission decisions, and the possibility to read or modify files before
+ access by other applications.
+ .
+ inotify-tools is also useful for security activities in firewall systems or
+ to detect changes and injections of new files in webservers by intruders.

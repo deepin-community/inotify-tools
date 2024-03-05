@@ -1,0 +1,27 @@
+Test-Command: inotifywait 2>&1 | egrep "No files specified to watch"
+Restrictions: superficial
+
+Test-Command: inotifywait -h 2>&1 | egrep -i usage:
+Restrictions: superficial
+
+Test-Command: inotifywatch 2>&1 | egrep "No files specified to watch"
+Restrictions: superficial
+
+Test-Command: inotifywatch -h 2>&1 | egrep -i usage:
+Restrictions: superficial
+
+Test-Command: inotifywatch -v -t 5 debian/tests/control 2>&1 > $AUTOPKGTEST_TMP/test &
+              sleep 1; cat debian/tests/control > /dev/null;
+              sleep 8; egrep control $AUTOPKGTEST_TMP/test
+Restrictions: allow-stderr
+
+Test-Command: mkdir $AUTOPKGTEST_TMP/box;
+              > $AUTOPKGTEST_TMP/box/ok;
+              inotifywatch -vr -t 5 $AUTOPKGTEST_TMP 2>&1 > $AUTOPKGTEST_TMP/test &
+              sleep 1; ls $AUTOPKGTEST_TMP/box > /dev/null;
+              sleep 8; egrep box $AUTOPKGTEST_TMP/test
+Restrictions: allow-stderr
+
+Test-Command: inotifywait debian/tests/control 2>&1 > $AUTOPKGTEST_TMP/test &
+              sleep 1; cat debian/tests/control > /dev/null;
+              sleep 1; egrep OPEN $AUTOPKGTEST_TMP/test
